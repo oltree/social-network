@@ -8,11 +8,13 @@ import Link from 'next/link';
 import cn from 'clsx';
 import { MENU } from './sidebar.config';
 import { usePathname } from 'next/navigation';
+import { useAuth } from '@/hooks/useAuth';
 
 export const Sidebar: FC = () => {
   const currentPathName = usePathname();
+  const { isLoggedIn } = useAuth();
 
-  return (
+  return isLoggedIn ? (
     <aside className={styles.sidebar}>
       <Image
         priority
@@ -38,5 +40,5 @@ export const Sidebar: FC = () => {
 
       <Sun size={27} />
     </aside>
-  );
+  ) : null;
 };
