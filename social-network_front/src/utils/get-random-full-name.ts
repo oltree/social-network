@@ -11,8 +11,8 @@ const fullNames: string[] = [
   'Robert Wilson',
 ];
 
-export function getRandomFullName(): string {
+export const getRandomFullName = (): string => {
   const randomIndex = Math.floor(Math.random() * fullNames.length);
 
   return fullNames[randomIndex];
-}
+};

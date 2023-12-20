@@ -6,7 +6,7 @@ export interface IUser {
   avatar: string;
 }
 
-export type UserJwt = {
+export interface UserJwt {
   user: IUser;
   jwt: string;
-};
+}

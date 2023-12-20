@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from '@/components/ui/button/Button';
-import Field from '@/components/ui/field/Field';
+import { Field } from '@/components/ui/field';
 import { getRandomFullName } from '@/utils/get-random-full-name';
 import { AtSign, KeyRound } from 'lucide-react';
 import { signIn } from 'next-auth/react';

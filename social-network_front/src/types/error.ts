@@ -1,4 +1,4 @@
-export type TypeError = {
+export interface TypeError {
   data: null;
   error: {
     status: string;
@@ -6,4 +6,4 @@ export type TypeError = {
     message: string;
     details: {};
   };
-};
+}

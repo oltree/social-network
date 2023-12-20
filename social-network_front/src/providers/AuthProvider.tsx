@@ -2,9 +2,9 @@
 
 import { useAuth } from '@/hooks/useAuth';
 import { usePathname, useRouter } from 'next/navigation';
-import { useEffect, PropsWithChildren } from 'react';
+import { useEffect, PropsWithChildren, FC } from 'react';
 
-export default function AuthProvider({ children }: PropsWithChildren<unknown>) {
+export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const { user, isLoggedIn } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
@@ -23,4 +23,4 @@ export default function AuthProvider({ children }: PropsWithChildren<unknown>) {
   }, [pathname, isLoggedIn]);
 
   return <>{children}</>;
-}
+};
