@@ -1,5 +1,6 @@
 import { Auth } from '@/components/screens/auth/Auth';
 import { NO_INDEX_PAGE } from '@/constants/seo';
+import { AuthEnum } from '@/types/auth';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -8,5 +9,5 @@ export const metadata: Metadata = {
 };
 
 export default function LoginPage() {
-  return <Auth type='Login' />;
+  return <Auth type={AuthEnum.LOGIN} />;
 }

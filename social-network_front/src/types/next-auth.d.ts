@@ -1,10 +1,6 @@
 import 'next-auth';
 
 declare module 'next-auth' {
-  interface Session {
-    user?: User;
-  }
-
   interface User {
     email?: string;
     username?: string;
@@ -12,6 +8,10 @@ declare module 'next-auth' {
     id?: string;
     jwt?: string;
     friends?: User[];
+  }
+
+  interface Session {
+    user?: User;
   }
 }
 

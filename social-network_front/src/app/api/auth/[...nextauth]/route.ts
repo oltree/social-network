@@ -1,18 +1,15 @@
+import NextAuth from 'next-auth/next';
 import { $fetch } from '@/$api/api.fetch';
-import { IUser } from '@/types/user';
+import { UserJwt } from '@/types/user';
 import { AuthOptions, User } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 
-export const nextAuthOptions: AuthOptions = {
+const nextAuthOptions: AuthOptions = {
   providers: [
     Credentials({
       credentials: {
-        username: {
-          type: 'text',
-        },
-        email: {
-          type: 'text',
-        },
+        username: { type: 'text' },
+        email: { type: 'text' },
         password: { type: 'password' },
       },
       async authorize(credentials) {
@@ -22,7 +19,7 @@ export const nextAuthOptions: AuthOptions = {
 
         if (credentials.username) {
           try {
-            const data = await $fetch.post<{ user: IUser; jwt: string }>(
+            const data = await $fetch.post<UserJwt>(
               `/auth/local/register`,
               credentials
             );
@@ -42,13 +39,10 @@ export const nextAuthOptions: AuthOptions = {
         }
 
         try {
-          const data = await $fetch.post<{ user: IUser; jwt: string }>(
-            `/auth/local`,
-            {
-              identifier: credentials.email,
-              password: credentials.password,
-            }
-          );
+          const data = await $fetch.post<UserJwt>(`/auth/local`, {
+            identifier: credentials.email,
+            password: credentials.password,
+          });
 
           return {
             id: data.user.email,
@@ -66,12 +60,17 @@ export const nextAuthOptions: AuthOptions = {
     }),
   ],
   callbacks: {
-    jwt({ token, user, account }) {
+    jwt({ token, user }) {
       return { ...token, ...user };
     },
-    session({ session, token, user }) {
+    session({ session, token }) {
       session.user = token as User;
+
       return session;
     },
   },
 };
+
+const handler = NextAuth(nextAuthOptions);
+
+export { handler as GET, handler as POST };

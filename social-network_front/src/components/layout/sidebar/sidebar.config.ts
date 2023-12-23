@@ -17,10 +17,6 @@ export const MENU: IMenuItem[] = [
     icon: Users2,
   },
   {
-    url: '/calls',
-    icon: Phone,
-  },
-  {
     url: '/',
     icon: MessagesSquare,
   },

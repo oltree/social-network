@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button/Button';
 import { Field } from '@/components/ui/field';
+import { AuthEnum } from '@/types/auth';
 import { getRandomFullName } from '@/utils/get-random-full-name';
 import { AtSign, KeyRound } from 'lucide-react';
 import { signIn } from 'next-auth/react';
@@ -11,7 +12,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 
 interface IAuth {
-  type?: 'Login' | 'Register';
+  type: AuthEnum;
 }
 
 export interface IAuthFormState {
@@ -24,7 +25,6 @@ export function Auth({ type }: IAuth) {
   const { register, handleSubmit } = useForm<IAuthFormState>({
     mode: 'onChange',
   });
-
   const { push } = useRouter();
 
   const onSubmit: SubmitHandler<IAuthFormState> = async (data) => {
@@ -32,7 +32,7 @@ export function Auth({ type }: IAuth) {
 
     const response = await signIn(
       'credentials',
-      type === 'Login'
+      type === AuthEnum.LOGIN
         ? {
             redirect: false,
             ...data,
