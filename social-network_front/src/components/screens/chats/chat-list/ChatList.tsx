@@ -7,7 +7,7 @@ import { Search } from 'lucide-react';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useQuery } from '@tanstack/react-query';
 import { $fetch } from '@/$api/api.fetch';
-import { IChat } from '@/types/chat';
+import { IStrapiChat, IStrapiResponse } from '@/types/chat';
 import { Loader } from '@/components/ui/loader';
 import { ChatListItem } from './ChatListItem';
 
@@ -16,14 +16,11 @@ export const ChatsList: FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm);
 
-  const { data, isLoading, isFetching } = useQuery({
-    queryKey: ['chats', debouncedSearchTerm],
+  const { data, isLoading } = useQuery({
+    queryKey: ['chats'],
     queryFn: () =>
-      $fetch.get<{ data: IChat[] }>(
-        `/chats
-				?sort=createdAt:desc
-				&populate[messages]=*
-				&filters[$or][1][messages][text][$contains]=${debouncedSearchTerm}`,
+      $fetch.get<{ data: IStrapiResponse<IStrapiChat>[] }>(
+        `/chats?sort=createdAt:desc&populate[messages]=*&populate[participants]=*&filters[participants][email][$eq]=${user?.email}`,
         true
       ),
     enabled: isLoggedIn,
@@ -32,22 +29,16 @@ export const ChatsList: FC = () => {
   return (
     <div>
       <div className='border-t border-b border-border p-layout'>
-        <Field
-          placeholder='Search chats'
-          Icon={Search}
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
+        <Field placeholder='Search chats' Icon={Search} />
       </div>
-
       <div>
-        {isLoading || isFetching ? (
+        {isLoading ? (
           <div className='p-layout'>
             <Loader />
           </div>
         ) : data?.data.length ? (
-          data?.data.map((chat) => {
-            return <ChatListItem key={chat.id} chat={chat} />;
+          data?.data.map(({ id, attributes: chat }) => {
+            return <ChatListItem key={id} data={chat} id={id} />;
           })
         ) : (
           <p className='p-layout'>Chats not found!</p>
