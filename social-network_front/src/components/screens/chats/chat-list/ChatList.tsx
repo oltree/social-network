@@ -20,16 +20,28 @@ export const ChatsList: FC = () => {
     queryKey: ['chats'],
     queryFn: () =>
       $fetch.get<{ data: IStrapiResponse<IStrapiChat>[] }>(
-        `/chats?sort=createdAt:desc&populate[messages]=*&populate[participants]=*&filters[participants][email][$eq]=${user?.email}`,
+        `/chats?sort=createdAt:desc
+			&populate[messages]=*
+			&populate[participants][populate][avatar]=*
+			&filters[participants][email][$eq]=${user?.email}
+			&filters[$or][0][participants][username][$contains]=${debouncedSearchTerm}
+			&filters[$or][1][messages][text][$contains]=${debouncedSearchTerm}
+			`,
         true
       ),
+
     enabled: isLoggedIn,
   });
 
   return (
     <div>
       <div className='border-t border-b border-border p-layout'>
-        <Field placeholder='Search chats' Icon={Search} />
+        <Field
+          placeholder='Search chats'
+          Icon={Search}
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
       </div>
       <div>
         {isLoading ? (

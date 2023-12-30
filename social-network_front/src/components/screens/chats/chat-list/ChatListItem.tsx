@@ -27,7 +27,7 @@ export const ChatListItem: FC<ChatListItemProps> = ({ data: chat, id }) => {
       className='p-layout flex items-center border-b border-border duration-300 ease-linear transition-colors hover:bg-border'
     >
       <Image
-        src={correspondent?.attributes.avatar || '/assets/images/no-avatar.png'}
+        src={'/assets/images/no-avatar.png'}
         alt={correspondent?.attributes.email || ''}
         width={45}
         height={45}

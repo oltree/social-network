@@ -3,7 +3,7 @@ export interface IUser {
   email: string;
   confirmed: boolean;
   role: string;
-  avatar: string;
+  avatar: string; // изменить тип согласно структуре в strapi
 }
 
 export interface UserJwt {

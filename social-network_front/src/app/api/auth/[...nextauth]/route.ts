@@ -47,7 +47,7 @@ const nextAuthOptions: AuthOptions = {
           return {
             id: data.user.email,
             email: data.user.email,
-            avatar: data.user.avatar,
+            avatar: data.user.avatar, // тут можем написать норм путь для аватарки
             username: data.user.username,
             jwt: data.jwt,
           } as User;
