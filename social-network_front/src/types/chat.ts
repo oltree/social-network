@@ -1,24 +1,14 @@
 import { IUser } from './user';
 
 export interface IMessage {
-  id: string;
+  id: number;
   text: string;
   createdAt: string;
   sender: IUser;
 }
 
 export interface IChat {
-  id: string;
+  id: number;
   messages: IMessage[];
   participants: IUser[];
-}
-
-export interface IStrapiChat {
-  messages: { data: IStrapiResponse<IMessage>[] };
-  participants: { data: IStrapiResponse<IUser>[] };
-}
-
-export interface IStrapiResponse<T> {
-  attributes: T;
-  id: number;
 }

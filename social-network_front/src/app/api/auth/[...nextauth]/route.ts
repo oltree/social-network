@@ -20,12 +20,12 @@ const nextAuthOptions: AuthOptions = {
         if (credentials.username) {
           try {
             const data = await $fetch.post<UserJwt>(
-              `/auth/local/register`,
+              `/auth/local/register?populate[avatar]=*`,
               credentials
             );
 
             return {
-              id: data.user.email,
+              id: data.user.id,
               email: data.user.email,
               avatar: data.user.avatar,
               username: data.user.username,
@@ -39,15 +39,18 @@ const nextAuthOptions: AuthOptions = {
         }
 
         try {
-          const data = await $fetch.post<UserJwt>(`/auth/local`, {
-            identifier: credentials.email,
-            password: credentials.password,
-          });
+          const data = await $fetch.post<UserJwt>(
+            `/auth/local?populate[avatar]=*`,
+            {
+              identifier: credentials.email,
+              password: credentials.password,
+            }
+          );
 
           return {
-            id: data.user.email,
+            id: data.user.id,
             email: data.user.email,
-            avatar: data.user.avatar, // тут можем написать норм путь для аватарки
+            avatar: data.user.avatar,
             username: data.user.username,
             jwt: data.jwt,
           } as User;

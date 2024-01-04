@@ -1,9 +1,10 @@
 export interface IUser {
+  id: number;
   username: string;
   email: string;
   confirmed: boolean;
   role: string;
-  avatar: string; // изменить тип согласно структуре в strapi
+  avatar: string;
 }
 
 export interface UserJwt {

@@ -7,7 +7,7 @@ import { Search } from 'lucide-react';
 import { useDebounce } from '@/hooks/useDebounce';
 import { useQuery } from '@tanstack/react-query';
 import { $fetch } from '@/$api/api.fetch';
-import { IStrapiChat, IStrapiResponse } from '@/types/chat';
+import { IChat } from '@/types/chat';
 import { Loader } from '@/components/ui/loader';
 import { ChatListItem } from './ChatListItem';
 
@@ -16,20 +16,19 @@ export const ChatsList: FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const debouncedSearchTerm = useDebounce(searchTerm);
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['chats'],
+  const { data, isLoading, isFetching } = useQuery({
+    queryKey: ['chats', debouncedSearchTerm],
     queryFn: () =>
-      $fetch.get<{ data: IStrapiResponse<IStrapiChat>[] }>(
+      $fetch.get<{ data: IChat[] }>(
         `/chats?sort=createdAt:desc
-			&populate[messages]=*
-			&populate[participants][populate][avatar]=*
-			&filters[participants][email][$eq]=${user?.email}
-			&filters[$or][0][participants][username][$contains]=${debouncedSearchTerm}
-			&filters[$or][1][messages][text][$contains]=${debouncedSearchTerm}
-			`,
+				&populate[messages]=*
+				&populate[participants][populate][avatar]=*
+				&filters[participants][email][$eq]=${user?.email}
+				&filters[$or][0][participants][username][$contains]=${debouncedSearchTerm}
+				&filters[$or][1][messages][text][$contains]=${debouncedSearchTerm}
+				`,
         true
       ),
-
     enabled: isLoggedIn,
   });
 
@@ -44,16 +43,14 @@ export const ChatsList: FC = () => {
         />
       </div>
       <div>
-        {isLoading ? (
+        {isLoading || isFetching ? (
           <div className='p-layout'>
             <Loader />
           </div>
-        ) : data?.data.length ? (
-          data?.data.map(({ id, attributes: chat }) => {
-            return <ChatListItem key={id} data={chat} id={id} />;
-          })
         ) : (
-          <p className='p-layout'>Chats not found!</p>
+          data?.data.map((chat) => {
+            return <ChatListItem key={chat.id} chat={chat} />;
+          })
         )}
       </div>
     </div>

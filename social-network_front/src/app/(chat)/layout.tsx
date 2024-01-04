@@ -1,8 +1,8 @@
 import { ChatsList } from '@/components/screens/chats/chat-list';
-import { Chat } from '@/components/screens/chats/chat';
 import { CurrentUser } from '@/components/screens/chats/current-user';
+import { PropsWithChildren } from 'react';
 
-export default function ChatsPage() {
+export default function ChatLayout({ children }: PropsWithChildren) {
   return (
     <div
       className='grid h-full'
@@ -14,10 +14,7 @@ export default function ChatsPage() {
         <CurrentUser />
         <ChatsList />
       </div>
-
-      <div>
-        <Chat />
-      </div>
+      <div>{children}</div>
     </div>
   );
 }
