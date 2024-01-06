@@ -66,11 +66,18 @@
       "configurable": false
     },
     "avatar": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "messages": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::message.message",
+      "mappedBy": "sender"
     },
     "chats": {
       "type": "relation",
@@ -78,11 +85,11 @@
       "target": "api::chat.chat",
       "mappedBy": "participants"
     },
-    "messages": {
+    "friends": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::message.message",
-      "mappedBy": "sender"
+      "relation": "oneToOne",
+      "target": "api::friend.friend",
+      "mappedBy": "user"
     }
   }
 }

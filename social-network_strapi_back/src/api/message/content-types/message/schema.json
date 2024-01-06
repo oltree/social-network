@@ -4,8 +4,7 @@
   "info": {
     "singularName": "message",
     "pluralName": "messages",
-    "displayName": "Message",
-    "description": ""
+    "displayName": "Message"
   },
   "options": {
     "draftAndPublish": true
@@ -19,6 +18,12 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
+      "inversedBy": "messages"
+    },
+    "chat": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::chat.chat",
       "inversedBy": "messages"
     }
   }

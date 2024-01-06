@@ -5,7 +5,7 @@ declare module 'next-auth' {
     email?: string;
     username?: string;
     avatar?: string;
-    id?: number;
+    id?: string;
     jwt?: string;
     friends?: User[];
   }

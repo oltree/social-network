@@ -4,12 +4,14 @@ import { $fetch } from '@/$api/api.fetch';
 import { Field } from '@/components/ui/field';
 import { useAuth } from '@/hooks/useAuth';
 import { useMutation } from '@tanstack/react-query';
+import { useReactQuerySubscription } from '@/hooks/useReactQuerySubscription';
 import { ArrowRightToLine, Send } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import { FC, useState } from 'react';
 
 export const MessageField: FC = () => {
   const [message, setMessage] = useState('');
+  const send = useReactQuerySubscription();
   const { id } = useParams();
   const { user } = useAuth();
 
@@ -29,6 +31,11 @@ export const MessageField: FC = () => {
       ),
     onSuccess() {
       setMessage('');
+      send({
+        operation: 'update',
+        entity: 'chat',
+        id: id.toString(),
+      });
     },
   });
 

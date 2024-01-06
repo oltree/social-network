@@ -20,12 +20,12 @@ const nextAuthOptions: AuthOptions = {
         if (credentials.username) {
           try {
             const data = await $fetch.post<UserJwt>(
-              `/auth/local/register?populate[avatar]=*`,
+              `/auth/local/register`,
               credentials
             );
 
             return {
-              id: data.user.id,
+              id: data.user.id.toString(),
               email: data.user.email,
               avatar: data.user.avatar,
               username: data.user.username,
@@ -39,16 +39,13 @@ const nextAuthOptions: AuthOptions = {
         }
 
         try {
-          const data = await $fetch.post<UserJwt>(
-            `/auth/local?populate[avatar]=*`,
-            {
-              identifier: credentials.email,
-              password: credentials.password,
-            }
-          );
+          const data = await $fetch.post<UserJwt>(`/auth/local`, {
+            identifier: credentials.email,
+            password: credentials.password,
+          });
 
           return {
-            id: data.user.id,
+            id: data.user.id.toString(),
             email: data.user.email,
             avatar: data.user.avatar,
             username: data.user.username,

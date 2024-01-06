@@ -1,14 +1,14 @@
 import { IUser } from './user';
 
 export interface IMessage {
-  id: number;
+  id: string;
   text: string;
   createdAt: string;
   sender: IUser;
 }
 
 export interface IChat {
-  id: number;
+  id: string;
   messages: IMessage[];
   participants: IUser[];
 }

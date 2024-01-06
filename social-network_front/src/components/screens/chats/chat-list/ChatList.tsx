@@ -29,6 +29,7 @@ export const ChatsList: FC = () => {
 				`,
         true
       ),
+    select: (data) => data.data,
     enabled: isLoggedIn,
   });
 
@@ -48,7 +49,7 @@ export const ChatsList: FC = () => {
             <Loader />
           </div>
         ) : (
-          data?.data.map((chat) => {
+          data?.map((chat) => {
             return <ChatListItem key={chat.id} chat={chat} />;
           })
         )}

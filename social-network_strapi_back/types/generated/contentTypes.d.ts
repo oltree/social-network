@@ -394,13 +394,52 @@ export interface ApiChatChat extends Schema.CollectionType {
   };
 }
 
+export interface ApiFriendFriend extends Schema.CollectionType {
+  collectionName: 'friends';
+  info: {
+    singularName: 'friend';
+    pluralName: 'friends';
+    displayName: 'Friend';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    user: Attribute.Relation<
+      'api::friend.friend',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    list: Attribute.Relation<
+      'api::friend.friend',
+      'oneToMany',
+      'plugin::users-permissions.user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::friend.friend',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::friend.friend',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiMessageMessage extends Schema.CollectionType {
   collectionName: 'messages';
   info: {
     singularName: 'message';
     pluralName: 'messages';
     displayName: 'Message';
-    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -411,6 +450,11 @@ export interface ApiMessageMessage extends Schema.CollectionType {
       'api::message.message',
       'manyToOne',
       'plugin::users-permissions.user'
+    >;
+    chat: Attribute.Relation<
+      'api::message.message',
+      'manyToOne',
+      'api::chat.chat'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -728,15 +772,20 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'plugin::users-permissions.role'
     >;
     avatar: Attribute.Media;
+    messages: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::message.message'
+    >;
     chats: Attribute.Relation<
       'plugin::users-permissions.user',
       'manyToMany',
       'api::chat.chat'
     >;
-    messages: Attribute.Relation<
+    friends: Attribute.Relation<
       'plugin::users-permissions.user',
-      'oneToMany',
-      'api::message.message'
+      'oneToOne',
+      'api::friend.friend'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -766,6 +815,7 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'api::chat.chat': ApiChatChat;
+      'api::friend.friend': ApiFriendFriend;
       'api::message.message': ApiMessageMessage;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
