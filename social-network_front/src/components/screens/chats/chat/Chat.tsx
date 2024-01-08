@@ -36,7 +36,7 @@ export const Chat: FC<ChatProps> = ({ id }) => {
 
   return (
     <div
-      className='w-8/12 border-r border-border h-full grid'
+      className='w-8/12 border-r border-border grid h-screen'
       style={{
         gridTemplateRows: isLoading ? '1fr .089fr' : '.6fr 6fr .6fr',
       }}
@@ -49,7 +49,7 @@ export const Chat: FC<ChatProps> = ({ id }) => {
         <>
           <ChatHeader correspondent={correspondent} />
 
-          <div className='p-layout border-t border-border'>
+          <div className='p-layout border-t border-border max-h-full overflow-auto'>
             {data?.messages.map((message) => (
               <Message key={message.id} message={message} />
             ))}

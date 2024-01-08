@@ -87,9 +87,9 @@
     },
     "friends": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToMany",
       "target": "api::friend.friend",
-      "mappedBy": "user"
+      "mappedBy": "users"
     }
   }
 }

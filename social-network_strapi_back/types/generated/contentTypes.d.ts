@@ -406,14 +406,9 @@ export interface ApiFriendFriend extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    user: Attribute.Relation<
+    users: Attribute.Relation<
       'api::friend.friend',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    list: Attribute.Relation<
-      'api::friend.friend',
-      'oneToMany',
+      'manyToMany',
       'plugin::users-permissions.user'
     >;
     createdAt: Attribute.DateTime;
@@ -784,7 +779,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     >;
     friends: Attribute.Relation<
       'plugin::users-permissions.user',
-      'oneToOne',
+      'manyToMany',
       'api::friend.friend'
     >;
     createdAt: Attribute.DateTime;

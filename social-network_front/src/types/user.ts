@@ -5,6 +5,7 @@ export interface IUser {
   confirmed: boolean;
   role: string;
   avatar: string;
+  friends: IUser[];
 }
 
 export interface UserJwt {
