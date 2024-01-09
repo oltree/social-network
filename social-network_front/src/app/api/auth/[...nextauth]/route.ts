@@ -1,8 +1,9 @@
 import NextAuth from 'next-auth/next';
-import { $fetch } from '@/$api/api.fetch';
-import { UserJwt } from '@/types/user';
 import { AuthOptions, User } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
+
+import { $fetch } from '@/$api/api.fetch';
+import { UserJwt } from '@/types/user';
 
 const nextAuthOptions: AuthOptions = {
   providers: [

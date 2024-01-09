@@ -1,11 +1,13 @@
 'use client';
 
-import { useAuth } from '@/hooks/useAuth';
+import { FC } from 'react';
 import { LogOut } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 import Image from 'next/image';
+
+import { useAuth } from '@/hooks/useAuth';
+
 import { useRouter } from 'next/navigation';
-import { FC } from 'react';
 
 export const CurrentUser: FC = () => {
   const { user } = useAuth();

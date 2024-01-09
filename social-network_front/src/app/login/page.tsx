@@ -1,7 +1,8 @@
-import { Auth } from '@/components/screens/auth/Auth';
+import { Metadata } from 'next';
+
+import { Auth } from '@/components/screens/auth';
 import { NO_INDEX_PAGE } from '@/constants/seo';
 import { AuthEnum } from '@/types/auth';
-import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Social media login',

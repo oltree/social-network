@@ -10,6 +10,7 @@ interface MessageProps {
 
 export const Message: FC<MessageProps> = ({ message }) => {
   const { user } = useAuth();
+
   const isSender = user?.email === message.sender.email;
 
   return (

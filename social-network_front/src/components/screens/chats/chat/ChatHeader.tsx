@@ -1,7 +1,8 @@
-import { IUser } from '@/types/user';
 import { Search } from 'lucide-react';
 import Image from 'next/image';
 import { FC } from 'react';
+
+import { IUser } from '@/types/user';
 
 interface ChatHeaderProps {
   correspondent?: IUser;

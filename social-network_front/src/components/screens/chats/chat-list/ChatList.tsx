@@ -1,14 +1,16 @@
 'use client';
 
-import { Field } from '@/components/ui/field';
-import { useAuth } from '@/hooks/useAuth';
 import { FC, useState } from 'react';
 import { Search } from 'lucide-react';
-import { useDebounce } from '@/hooks/useDebounce';
 import { useQuery } from '@tanstack/react-query';
+
+import { Field } from '@/components/ui/field';
+import { useAuth } from '@/hooks/useAuth';
+import { useDebounce } from '@/hooks/useDebounce';
 import { $fetch } from '@/$api/api.fetch';
 import { IChat } from '@/types/chat';
 import { Loader } from '@/components/ui/loader';
+
 import { ChatListItem } from './ChatListItem';
 
 export const ChatsList: FC = () => {

@@ -1,17 +1,18 @@
 'use client';
 
+import { AtSign, KeyRound } from 'lucide-react';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { FC, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+
 import { Button } from '@/components/ui/button/Button';
 import { Field } from '@/components/ui/field';
 import { AuthEnum } from '@/types/auth';
 import { getRandomFullName } from '@/utils/get-random-full-name';
-import { AtSign, KeyRound } from 'lucide-react';
-import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
 
-interface IAuth {
+interface AuthProps {
   type: AuthEnum;
 }
 
@@ -20,7 +21,7 @@ export interface IAuthFormState {
   password: string;
 }
 
-export function Auth({ type }: IAuth) {
+export const Auth: FC<AuthProps> = ({ type }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { register, handleSubmit } = useForm<IAuthFormState>({
     mode: 'onChange',
@@ -61,6 +62,7 @@ export function Auth({ type }: IAuth) {
         className='m-auto block w-96 border border-border p-8'
       >
         <h1 className='text-center mb-10'>{type}</h1>
+
         <Field
           {...register('email', {
             required: true,
@@ -70,6 +72,7 @@ export function Auth({ type }: IAuth) {
           Icon={AtSign}
           className='mb-8'
         />
+
         <Field
           {...register('password', {
             required: true,
@@ -92,4 +95,4 @@ export function Auth({ type }: IAuth) {
       </form>
     </div>
   );
-}
+};

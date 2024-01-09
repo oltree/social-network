@@ -1,8 +1,9 @@
 'use client';
 
-import { useAuth } from '@/hooks/useAuth';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, PropsWithChildren, FC } from 'react';
+
+import { useAuth } from '@/hooks/useAuth';
 
 export const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
   const { user, isLoggedIn } = useAuth();

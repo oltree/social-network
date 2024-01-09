@@ -1,7 +1,9 @@
 import cn from 'clsx';
 import { forwardRef } from 'react';
+
+import { TypeInputProps } from './field.type';
+
 import styles from './Field.module.scss';
-import { TypeInputProps } from './field.types';
 
 export const Field = forwardRef<HTMLInputElement, TypeInputProps>(
   ({ error, style, Icon, className, ...rest }, ref) => (
@@ -11,7 +13,9 @@ export const Field = forwardRef<HTMLInputElement, TypeInputProps>(
           <Icon />
         </div>
       )}
+
       <input ref={ref} {...rest} />
+
       {error && <div className={styles.error}>{error.message}</div>}
     </label>
   )

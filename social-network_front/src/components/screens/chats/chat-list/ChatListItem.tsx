@@ -1,11 +1,12 @@
 'use client';
 
-import { useAuth } from '@/hooks/useAuth';
-import { IChat } from '@/types/chat';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
+
+import { useAuth } from '@/hooks/useAuth';
+import { IChat } from '@/types/chat';
 
 interface ChatListItemProps {
   chat: IChat;

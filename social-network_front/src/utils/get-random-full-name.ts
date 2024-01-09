@@ -1,4 +1,4 @@
-const fullNames: string[] = [
+const fullNamesMock: string[] = [
   'John Doe',
   'Jane Smith',
   'Emily Johnson',
@@ -12,7 +12,7 @@ const fullNames: string[] = [
 ];
 
 export const getRandomFullName = (): string => {
-  const randomIndex = Math.floor(Math.random() * fullNames.length);
+  const randomIndex = Math.floor(Math.random() * fullNamesMock.length);
 
-  return fullNames[randomIndex];
+  return fullNamesMock[randomIndex];
 };

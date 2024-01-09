@@ -1,5 +1,7 @@
 import { FC, InputHTMLAttributes } from 'react';
+
 import { Loader } from '../loader';
+
 import styles from './Button.module.scss';
 
 interface ButtonProps extends InputHTMLAttributes<HTMLButtonElement> {

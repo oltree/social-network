@@ -1,17 +1,19 @@
 'use client';
 
+import { FC } from 'react';
+import { useQuery } from '@tanstack/react-query';
+
 import { $fetch } from '@/$api/api.fetch';
-import { Loader } from '@/components/ui/loader/Loader';
+import { Loader } from '@/components/ui/loader';
 import { useAuth } from '@/hooks/useAuth';
 import { IChat } from '@/types/chat';
-import { useQuery } from '@tanstack/react-query';
+
 import { MessageField } from './MessageField';
-import { FC } from 'react';
 import { ChatHeader } from './ChatHeader';
 import { Message } from './Message';
 
 interface ChatProps {
-  id?: number;
+  id?: string;
 }
 
 export const Chat: FC<ChatProps> = ({ id }) => {

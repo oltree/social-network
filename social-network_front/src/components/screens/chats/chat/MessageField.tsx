@@ -1,19 +1,20 @@
 'use client';
 
-import { $fetch } from '@/$api/api.fetch';
-import { Field } from '@/components/ui/field';
-import { useAuth } from '@/hooks/useAuth';
-import { useMutation } from '@tanstack/react-query';
-import { useReactQuerySubscription } from '@/hooks/useReactQuerySubscription';
 import { ArrowRightToLine, Send } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import { FC, useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+
+import { $fetch } from '@/$api/api.fetch';
+import { Field } from '@/components/ui/field';
+import { useAuth } from '@/hooks/useAuth';
+import { useReactQuerySubscription } from '@/hooks/useReactQuerySubscription';
 
 export const MessageField: FC = () => {
   const [message, setMessage] = useState('');
-  const send = useReactQuerySubscription();
   const { id } = useParams();
   const { user } = useAuth();
+  const send = useReactQuerySubscription();
 
   const { mutate } = useMutation({
     mutationKey: ['update chat', id],
