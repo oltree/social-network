@@ -1,6 +1,6 @@
 # Project Description
 
-This project is a training project for the study of technology Next.js 14 + next-auth, socket.io, strapi, .
+This project is a training project for the study of technology Next.js 14 + Next-auth, Socket.io, Strapi.
 
 ## Technologies
 
